@@ -25,7 +25,8 @@ const userSchema = new mongoose.Schema({
         enum: ['male', 'female']
     }
 },{
-    versionKey:false
+    versionKey:false,
+    timestamps: true
 })
 
 export default mongoose.model('User', userSchema)

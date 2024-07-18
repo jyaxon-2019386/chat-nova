@@ -5,6 +5,7 @@ import morgan from 'morgan'
 import helmet from 'helmet'
 import cors from 'cors'
 import { config } from "dotenv"
+import cookieParser from 'cookie-parser'
 
 //Configuraciones
 const app = express()
@@ -13,21 +14,17 @@ const port = process.env.PORT || 3056
 
 //Configuración del servidor
 app.use(express.urlencoded({ extended: false }))
+app.use(cookieParser())
 app.use(express.json())
 app.use(cors()) //Aceptar o denegar solicitudes de diferentes orígenes (local, remoto) / políticas de acceso
 app.use(helmet()) //Aplica capa de seguridad básica al servidor
 app.use(morgan('dev')) //Logs de solicitudes al servidor HTTP
 
 import authRoutes from '../routes/auth.routes.js'
-
-
-app.get('/', (req, res) => {
-    res.send('Happy hacking!')
-})
-
-
+import messageRoutes from '../routes/auth.routes.js'
 
 app.use('/api/auth', authRoutes)
+app.use('/api/messages', messageRoutes)
 
 //Levantar el servidor
 export const initServer = () => {
